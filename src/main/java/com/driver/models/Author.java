@@ -38,7 +38,13 @@ public class Author {
         this.email = email;
         this.age = age;
         this.country = country;
-       // this.booksWritten = booksWritten;
+        this.booksWritten = booksWritten;
+    }
+
+    public Author(String name, String email, String country) {
+        this.name = name;
+        this.email = email;
+        this.country = country;
     }
 }
 
