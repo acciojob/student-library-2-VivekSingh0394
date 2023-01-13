@@ -46,5 +46,9 @@ public class Book {
     public Book() {
     }
 
+    public Book(String name, Genre genre) {
+        this.name = name;
+        this.genre = genre;
+    }
 }
 
