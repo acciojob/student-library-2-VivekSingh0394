@@ -68,6 +68,8 @@ public class TransactionService {
             if(currentNumberOfBooks < max_allowed_books-1)
             {
                card.getBooks().add(bookRepository5.findById(bookId).get());
+               book.setAvailable(false);
+
                Transaction transaction = new Transaction();
                transaction.setTransactionStatus(TransactionStatus.SUCCESSFUL);
                String transactionId = transaction.getTransactionId();
@@ -95,8 +97,27 @@ public class TransactionService {
 
         Transaction returnBookTransaction  = null;
 
+    // book made available and book removed from card
 
-         Date isdate=transaction.getTransactionDate();
+         Book book = bookRepository5.findById(bookId).get();
+
+         Card card = cardRepository5.findById(cardId).get();
+         List<Book> bookList = card.getBooks();
+
+
+         // fine
+        Date isdate=transaction.getTransactionDate();
+
+        for(Book books : bookList)
+        {
+            if(books.getId()==bookId)
+            {
+                books.getTransactions();
+            }
+        }
+
+        book.setAvailable(true);
+        bookList.remove(book);
 
         return returnBookTransaction; //return the transaction after updating all details
     }
