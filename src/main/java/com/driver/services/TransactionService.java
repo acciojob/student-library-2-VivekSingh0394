@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+import static com.driver.models.CardStatus.ACTIVATED;
 import static com.driver.models.CardStatus.DEACTIVATED;
 
 @Service
@@ -55,32 +56,39 @@ public class TransactionService {
 
         if(card !=null && book!=null)
         {
-            if(book.isAvailable()==false)
+            if(book.isAvailable()==true)
+            {
+                if(card.getCardStatus()== ACTIVATED)
+                {
+                    int currentNumberOfBooks = card.getBooks().size();
+                    if(currentNumberOfBooks < max_allowed_books-1)
+                    {
+                        // adding book in card
+                        card.getBooks().add(bookRepository5.findById(bookId).get());
+                        // making book unavailable
+                        book.setAvailable(false);
+
+                       // book.getTransactions()
+
+                        Transaction transaction = new Transaction();
+                        transaction.setTransactionStatus(TransactionStatus.SUCCESSFUL);
+                        String transactionId = transaction.getTransactionId();
+                        book.getTransactions().add(transaction);
+                        return transactionId;
+
+                    }
+                    else
+                        throw new Exception("Book limit has reached for this card");
+                }
+                else
+                {
+                    throw new Exception("Card is invalid");
+                }
+            }
+            else
             {
                 throw new Exception("Book is either unavailable or not present");
             }
-            if(card.getCardStatus()== DEACTIVATED)
-            {
-                throw new Exception("Card is invalid");
-            }
-            int currentNumberOfBooks = card.getBooks().size();
-
-            if(currentNumberOfBooks < max_allowed_books-1)
-            {
-               card.getBooks().add(bookRepository5.findById(bookId).get());
-               book.setAvailable(false);
-
-               Transaction transaction = new Transaction();
-               transaction.setTransactionStatus(TransactionStatus.SUCCESSFUL);
-               String transactionId = transaction.getTransactionId();
-               book.getTransactions().add(transaction);
-               return transactionId;
-
-            }
-            else
-                throw new Exception("Book limit has reached for this card");
-
-
 
         }
        return null; //return transactionId instead
