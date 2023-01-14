@@ -45,11 +45,11 @@ public class BookService {
         // ii) If genre=”Y”, availability = false, and author=”A”; we require the list of all books
         // which are written by author “A”, have genre “Y”, and are currently unavailable.
         // Return success message wrapped in a ResponseEntity object Controller Name - getBooks
-         if(genre.length()>0 && available==true && author.length()>0)
+         if(genre!=null && available==true && author.length()>0)
          {
              books = bookRepository2.findBooksByGenreAuthor(genre,author,available);
          }
-        else if(author.length()==0)
+        else if(author==null)
         {
             books = bookRepository2.findBooksByGenre(genre,available);
         }
@@ -57,7 +57,7 @@ public class BookService {
         {
             books = bookRepository2.findBooksByGenreAuthor(genre,author,false);
         }
-        else if(genre.length()==0)
+        else if(genre==null)
          {
              books = bookRepository2.findBooksByAuthor(author,available);
          }
