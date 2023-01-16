@@ -7,6 +7,7 @@ import com.driver.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,25 +34,25 @@ public class BookService {
         author.setBooksWritten(currentListOfBooks);
         authorRepository.save(author);
 
-        bookRepository2.save(book);
+      //  bookRepository2.save(book);
     }
 
     public List<Book> getBooks(String genre, boolean available, String author){
 
-        List<Book> books = null; //find the elements of the list by yourself
+        List<Book> books = new ArrayList<>(); //find the elements of the list by yourself
 
         // If genre=”X”, availability = true, and author=null; we require the list of all books
         // which are available and have genre “X”. Note that these books can be written by any author.
         // ii) If genre=”Y”, availability = false, and author=”A”; we require the list of all books
         // which are written by author “A”, have genre “Y”, and are currently unavailable.
         // Return success message wrapped in a ResponseEntity object Controller Name - getBooks
-         if(genre!=null && available==true && author.length()>0)
+         if(genre!=null && available==true && author!=null)
          {
-             books = bookRepository2.findBooksByGenreAuthor(genre,author,available);
+             books = bookRepository2.findBooksByGenreAuthor(genre,author,true);
          }
         else if(author==null)
         {
-            books = bookRepository2.findBooksByGenre(genre,available);
+            books = bookRepository2.findBooksByGenre(genre,true);
         }
         else if(available == false)
         {
@@ -59,7 +60,7 @@ public class BookService {
         }
         else if(genre==null)
          {
-             books = bookRepository2.findBooksByAuthor(author,available);
+             books = bookRepository2.findBooksByAuthor(author,true);
          }
 
         return books;

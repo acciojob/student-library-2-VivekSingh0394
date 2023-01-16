@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Add required annotations
@@ -33,11 +34,11 @@ public class BookController {
     // which are written by author “A”, have genre “Y”, and are currently unavailable.
     // Return success message wrapped in a ResponseEntity object Controller Name -
     @GetMapping("/getBooks")
-    public ResponseEntity getBooks(@RequestParam(value = "genre", required = false) String genre,
+    public ResponseEntity<List<Book>> getBooks(@RequestParam(value = "genre", required = false) String genre,
                                    @RequestParam(value = "available", required = false, defaultValue = "false") boolean available,
                                    @RequestParam(value = "author", required = false) String author){
 
-        List<Book> bookList = null; //find the elements of the list by yourself
+        List<Book> bookList = new ArrayList<>(); //find the elements of the list by yourself
         bookList = bookService.getBooks(genre,available,author);
         return new ResponseEntity<>(bookList, HttpStatus.OK);
 
