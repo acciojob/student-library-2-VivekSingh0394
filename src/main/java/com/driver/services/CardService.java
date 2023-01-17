@@ -22,8 +22,8 @@ public class CardService {
     public Card createAndReturn(Student student){
         Card card = new Card();
         //link student with a new card
-       card.setCreatedOn(new Date());
-        card.setUpdatedOn(new Date());
+      // card.setCreatedOn(new Date());
+     //   card.setUpdatedOn(new Date());
         card.setStudent(student);
         student.setCard(card);
 
