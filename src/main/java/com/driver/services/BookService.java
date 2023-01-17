@@ -30,6 +30,8 @@ public class BookService {
         // since this book needs to be added in the list of books for this author
 
         List<Book> currentListOfBooks = author.getBooksWritten();
+        if(currentListOfBooks==null)
+            currentListOfBooks=new ArrayList<>();
         currentListOfBooks.add(book);
         author.setBooksWritten(currentListOfBooks);
         authorRepository.save(author);
