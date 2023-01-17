@@ -22,10 +22,10 @@ public class BookController {
     BookService bookService;
     //Add required annotations
     @PostMapping("/createBook")
-    public String createBook(@RequestBody() Book book)
+    public ResponseEntity createBook(@RequestBody() Book book)
     {
         bookService.createBook(book);
-        return "Success";
+        return new ResponseEntity<>("Success",HttpStatus.CREATED);
     }
     //Get Books: GET /book/ Pass nullable parameters genre, availability, and author to filter out books
     // For example: i) If genre=”X”, availability = true, and author=null; we require the list of all books
@@ -38,8 +38,8 @@ public class BookController {
                                    @RequestParam(value = "available", required = false, defaultValue = "false") boolean available,
                                    @RequestParam(value = "author", required = false) String author){
 
-        List<Book> bookList = new ArrayList<>(); //find the elements of the list by yourself
-        bookList = bookService.getBooks(genre,available,author);
+
+        List<Book> bookList = bookService.getBooks(genre,available,author);
         return new ResponseEntity<>(bookList, HttpStatus.OK);
 
     }
