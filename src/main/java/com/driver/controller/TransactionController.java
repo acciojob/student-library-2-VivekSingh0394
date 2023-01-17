@@ -22,8 +22,8 @@ public class TransactionController {
     //Add required annotations
     @PostMapping("/issueBook")
     public ResponseEntity<String> issueBook(@RequestParam("cardId") int cardId, @RequestParam("bookId") int bookId) throws Exception{
-       transactionService.issueBook(cardId,bookId);
-       return new ResponseEntity<>("transaction completed", HttpStatus.ACCEPTED);
+       String transId = transactionService.issueBook(cardId,bookId);
+       return new ResponseEntity<>("transaction completed, Transaction id is "+transId, HttpStatus.ACCEPTED);
     }
 
     //Add required annotations
