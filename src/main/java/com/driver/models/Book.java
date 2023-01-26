@@ -11,8 +11,6 @@ import java.util.List;
 
 @Entity
 @Table
-
-
 public class Book {
 
     @Id

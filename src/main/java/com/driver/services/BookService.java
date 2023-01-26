@@ -23,22 +23,12 @@ public class BookService {
 
     public void createBook(Book book)
     {
-
         Author author = book.getAuthor();
+        book.setAvailable(true);
+        author.getBooksWritten().add(book);
 
-        // we have got author now we need to set the author for the book
-        book.setAuthor(author);
-
-        // since this book needs to be added in the list of books for this author
-
-        List<Book> currentListOfBooks = author.getBooksWritten();
-        if(currentListOfBooks==null)
-            currentListOfBooks=new ArrayList<>();
-        currentListOfBooks.add(book);
-        author.setBooksWritten(currentListOfBooks);
-        //authorRepository.save(author);
         authorService.create(author);
-        //bookRepository2.save(book);
+
     }
 
     public List<Book> getBooks(String genre, boolean available, String author){
