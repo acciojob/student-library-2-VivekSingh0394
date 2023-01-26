@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.driver.models.CardStatus.ACTIVATED;
 import static com.driver.models.CardStatus.DEACTIVATED;
@@ -124,11 +125,19 @@ public class TransactionService {
 
          // fine
         Date issuedate=transaction.getTransactionDate();
-        int fine =0;
+//        int fine =0;
+//
+//        long numberOfDays = (System.currentTimeMillis() - issuedate.getTime())/(1000*60*60*24);
+//        if(numberOfDays > getMax_allowed_days)
+//       fine = (int)numberOfDays*fine_per_day;
+        long timeIssuetime = Math.abs(System.currentTimeMillis() - issuedate.getTime());
 
-        long numberOfDays = (System.currentTimeMillis() - issuedate.getTime())/(1000*60*60*24);
-        if(numberOfDays > getMax_allowed_days)
-       fine = (int)numberOfDays*fine_per_day;
+        long no_of_days_passed = TimeUnit.DAYS.convert(timeIssuetime, TimeUnit.MILLISECONDS);
+
+        int fine = 0;
+        if(no_of_days_passed > getMax_allowed_days){
+            fine = (int)((no_of_days_passed - getMax_allowed_days) * fine_per_day);
+        }
 
         // setting book attributes
         book.setAvailable(true);
