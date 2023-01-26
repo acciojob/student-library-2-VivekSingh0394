@@ -134,13 +134,7 @@ public class TransactionService {
         book.setAvailable(true);
         book.setCard(null);
 
-        for(Book books : bookList)
-        {
-            if(books.getId() == bookId)
-            {
-                bookList.remove(books);
-            }
-        }
+       bookList.remove(book);
         bookRepository5.updateBook(book);
         cardRepository5.save(card);
 

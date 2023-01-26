@@ -27,8 +27,8 @@ public class CardService {
         card.setStudent(student);
         student.setCard(card);
 
-     studentRepository.save(student);
-      //  cardRepository3.save(card);
+     //studentRepository.save(student);
+        cardRepository3.save(card);
         return card;
     }
 
