@@ -23,11 +23,19 @@ public class BookService {
 
     public void createBook(Book book)
     {
-        Author author = book.getAuthor();
-        book.setAvailable(true);
-        author.getBooksWritten().add(book);
+        int authorId = book.getAuthor().getId();
+        Author author = authorRepository.findById(authorId).get();
 
-        authorService.create(author);
+       List<Book> books= author.getBooksWritten();
+       books.add(book);
+
+       book.setAuthor(author);
+
+
+        book.setAvailable(true);
+
+
+        authorRepository.save(author);
 
     }
 
