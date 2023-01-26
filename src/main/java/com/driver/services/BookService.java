@@ -35,7 +35,7 @@ public class BookService {
        book.setAuthor(author);
 
 
-        book.setAvailable(true);
+       // book.setAvailable(true);
 
     bookRepository2.save(book);
         authorRepository.save(author);
