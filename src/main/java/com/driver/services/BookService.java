@@ -35,8 +35,7 @@ public class BookService {
         currentListOfBooks.add(book);
         author.setBooksWritten(currentListOfBooks);
         authorRepository.save(author);
-
-      //  bookRepository2.save(book);
+        bookRepository2.save(book);
     }
 
     public List<Book> getBooks(String genre, boolean available, String author){
