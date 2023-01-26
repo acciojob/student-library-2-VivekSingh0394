@@ -111,29 +111,50 @@ public class TransactionService {
         //make the book available for other users
         //make a new transaction for return book which contains the fine amount as well
 
-        Transaction returnBookTransaction  = null;
+        Transaction returnBookTransaction  = new Transaction();
 
     // book made available and book removed from card
 
          Book book = bookRepository5.findById(bookId).get();
 
          Card card = cardRepository5.findById(cardId).get();
+
          List<Book> bookList = card.getBooks();
 
 
          // fine
-        Date isdate=transaction.getTransactionDate();
+        Date issuedate=transaction.getTransactionDate();
+        int fine =0;
+        Date todaysDate = new Date();
+        long numberOfDays = (issuedate.getTime() - todaysDate.getTime())/(60*60*24);
+        if(numberOfDays > getMax_allowed_days)
+       fine = (int)numberOfDays*fine_per_day;
+
+        // setting book attributes
+        book.setAvailable(true);
 
         for(Book books : bookList)
         {
-            if(books.getId()==bookId)
+            if(books.getId() == bookId)
             {
-                books.getTransactions();
+                bookList.remove(books);
             }
         }
+        bookRepository5.updateBook(book);
+        cardRepository5.save(card);
 
-        book.setAvailable(true);
-        bookList.remove(book);
+        // setting return transaction attributes
+
+        returnBookTransaction.setFineAmount(fine);
+        returnBookTransaction.setTransactionDate(new Date());
+        returnBookTransaction.setIssueOperation(false);
+        returnBookTransaction.setBook(book);
+        returnBookTransaction.setTransactionStatus(TransactionStatus.SUCCESSFUL);
+        returnBookTransaction.setCard(card);
+
+        transactionRepository5.save(returnBookTransaction);
+
+
 
         return returnBookTransaction; //return the transaction after updating all details
     }
