@@ -66,7 +66,7 @@ public class TransactionService {
        transactionRepository5.save(transaction);
          throw new Exception("Book is either unavailable or not present");
      }
-        if(card == null || card.getCardStatus()==DEACTIVATED)
+        if(card == null || card.getCardStatus().equals(CardStatus.DEACTIVATED))
         {
             transaction.setTransactionStatus(TransactionStatus.FAILED);
             transactionRepository5.save(transaction);
@@ -85,15 +85,16 @@ public class TransactionService {
         // set card with book
         book.setCard(card);
         book.getTransactions().add(transaction);
-        bookRepository5.updateBook(book);
+
         card.getBooks().add(book);
+        bookRepository5.updateBook(book);
         cardRepository5.save(card);
+
         transactionRepository5.save(transaction);
+
          String id = null;
        id = transaction.getTransactionId();
        return id;
-
-        
 
 
      //  return null; //return transactionId instead
