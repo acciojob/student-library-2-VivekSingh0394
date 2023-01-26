@@ -18,6 +18,8 @@ public class BookService {
     BookRepository bookRepository2;
     @Autowired
     AuthorRepository authorRepository;
+    @Autowired
+    AuthorService authorService;
 
     public void createBook(Book book)
     {
@@ -34,8 +36,9 @@ public class BookService {
             currentListOfBooks=new ArrayList<>();
         currentListOfBooks.add(book);
         author.setBooksWritten(currentListOfBooks);
-        authorRepository.save(author);
-        bookRepository2.save(book);
+        //authorRepository.save(author);
+        authorService.create(author);
+        //bookRepository2.save(book);
     }
 
     public List<Book> getBooks(String genre, boolean available, String author){
