@@ -126,7 +126,7 @@ public class TransactionService {
         Date issuedate=transaction.getTransactionDate();
         int fine =0;
 
-        long numberOfDays = (System.currentTimeMillis() - issuedate.getTime())/(60*60*24);
+        long numberOfDays = (System.currentTimeMillis() - issuedate.getTime())/(1000*60*60*24);
         if(numberOfDays > getMax_allowed_days)
        fine = (int)numberOfDays*fine_per_day;
 
