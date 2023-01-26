@@ -26,18 +26,18 @@ public class BookService {
 
         // getting author of book
 
-        int authorId = book.getAuthor().getId();
+       int authorId = book.getAuthor().getId();
         Author author = authorRepository.findById(authorId).get();
 
        author.getBooksWritten().add(book);
 
 
-       book.setAuthor(author);
+   //    book.setAuthor(author);
 
 
        // book.setAvailable(true);
 
-    bookRepository2.save(book);
+   // bookRepository2.save(book);
         authorRepository.save(author);
 
     }
