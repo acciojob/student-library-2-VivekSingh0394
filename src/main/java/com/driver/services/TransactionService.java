@@ -89,8 +89,9 @@ public class TransactionService {
         card.getBooks().add(book);
         cardRepository5.save(card);
         transactionRepository5.save(transaction);
-
-       return transaction.getTransactionId();
+         String id = null;
+       id = transaction.getTransactionId();
+       return id;
 
         
 
