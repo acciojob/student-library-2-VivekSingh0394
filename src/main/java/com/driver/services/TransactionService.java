@@ -84,9 +84,11 @@ public class TransactionService {
          book.setAvailable(false);
         // set card with book
         book.setCard(card);
-        book.getTransactions().add(transaction);
 
-        card.getBooks().add(book);
+
+        List<Book> bookList = card.getBooks();
+        bookList.add(book);
+        card.setBooks(bookList);
         bookRepository5.updateBook(book);
         cardRepository5.save(card);
 
