@@ -125,13 +125,14 @@ public class TransactionService {
          // fine
         Date issuedate=transaction.getTransactionDate();
         int fine =0;
-        Date todaysDate = new Date();
-        long numberOfDays = (issuedate.getTime() - todaysDate.getTime())/(60*60*24);
+
+        long numberOfDays = (issuedate.getTime() - System.currentTimeMillis())/(60*60*24);
         if(numberOfDays > getMax_allowed_days)
        fine = (int)numberOfDays*fine_per_day;
 
         // setting book attributes
         book.setAvailable(true);
+        book.setCard(null);
 
         for(Book books : bookList)
         {
