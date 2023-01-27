@@ -136,7 +136,7 @@ public class TransactionService {
         Card card = cardRepository5.findById(cardId).get();
 
         // getting the last transaction of book
-        List<Transaction> transactionList = book.getTransactions();
+        List<Transaction> transactionList = transactionRepository5.find(cardId,bookId,TransactionStatus.SUCCESSFUL,true);
         Transaction lastTransaction = transactionList.get(transactionList.size()-1);
 
 
