@@ -107,9 +107,9 @@ public class TransactionService {
         transaction.setTransactionStatus(TransactionStatus.SUCCESSFUL);
 
         // save transaction in book
-        List<Transaction> booktransactionList = book.getTransactions();
-        booktransactionList.add(transaction);
-        book.setTransactions(booktransactionList);
+//        List<Transaction> booktransactionList = book.getTransactions();
+//        booktransactionList.add(transaction);
+//        book.setTransactions(booktransactionList);
 
 
         // save card
@@ -176,9 +176,9 @@ public class TransactionService {
 
         // set return transaction in booktransaction list
 
-        List<Transaction> bookstransactions = book.getTransactions();
-        bookstransactions.add(returnTransaction);
-        book.setTransactions(bookstransactions);
+//        List<Transaction> bookstransactions = book.getTransactions();
+//        bookstransactions.add(returnTransaction);
+//        book.setTransactions(bookstransactions);
 
         // save card
         cardRepository5.save(card);
