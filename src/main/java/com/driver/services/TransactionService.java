@@ -149,7 +149,7 @@ public class TransactionService {
 
         // set general atributes of return transaction
         returnTransaction.setTransactionDate(new Date());
-        returnTransaction.setIssueOperation(true);
+        returnTransaction.setIssueOperation(false);
 
         // calculate fine
 
