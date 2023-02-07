@@ -156,7 +156,8 @@ public class TransactionService {
         int fine =0;
         Date issueDate = lastTransaction.getTransactionDate();
         // number of days elapsed
-        long numberOfDaysElapsed = (System.currentTimeMillis() - issueDate.getTime())/(1000*60*60*24);
+        //long numberOfDaysElapsed = (System.currentTimeMillis() - issueDate.getTime())/(1000*60*60*24);
+        long numberOfDaysElapsed = (System.currentTimeMillis() - issueDate.getTime())/(1000*60);
         if(numberOfDaysElapsed > getMax_allowed_days)
         {
             fine= (int)(numberOfDaysElapsed-getMax_allowed_days)*fine_per_day;

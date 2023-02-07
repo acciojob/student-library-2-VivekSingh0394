@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name ="book")
 public class Book {
 
     @Id

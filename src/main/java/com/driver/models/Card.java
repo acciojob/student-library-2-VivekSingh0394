@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name="card")
 
 
 public class Card {
@@ -21,8 +21,8 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("card")
+    @OneToOne
+    @JoinColumn   // join this column to the primary key of Card table
     private Student student;
 
     @CreationTimestamp

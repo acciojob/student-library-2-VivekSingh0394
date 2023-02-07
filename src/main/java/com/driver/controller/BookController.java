@@ -1,5 +1,7 @@
 package com.driver.controller;
 
+import com.driver.RequestDto.BookRequestDto;
+import com.driver.ResponseDtos.BookResponseDto;
 import com.driver.models.Book;
 import com.driver.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,9 @@ public class BookController {
     BookService bookService;
     //Add required annotations
     @PostMapping("/createBook")
-    public ResponseEntity createBook(@RequestBody() Book book)
+    public ResponseEntity createBook(@RequestBody()BookRequestDto bookRequestDto)
     {
-        bookService.createBook(book);
+        bookService.createBook(bookRequestDto);
         return new ResponseEntity<>("Success",HttpStatus.CREATED);
     }
     //Get Books: GET /book/ Pass nullable parameters genre, availability, and author to filter out books

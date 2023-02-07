@@ -20,16 +20,17 @@ public class TransactionController {
 // return the book from the given card Return success message wrapped in a ResponseEntity object
 // Controller Name - returnBook
     //Add required annotations
-    @PostMapping("/issueBook")
+    @GetMapping("/issueBook")
     public ResponseEntity<String> issueBook(@RequestParam("cardId") int cardId, @RequestParam("bookId") int bookId) throws Exception{
        String transId = transactionService.issueBook(cardId,bookId);
        return new ResponseEntity<>("transaction completed, Transaction id is "+transId, HttpStatus.ACCEPTED);
+        //return new ResponseEntity<>("transaction completed, Transaction id is ", HttpStatus.ACCEPTED);
     }
 
     //Add required annotations
     @PostMapping("/returnBook")
     public ResponseEntity<String> returnBook(@RequestParam("cardId") int cardId, @RequestParam("bookId") int bookId) throws Exception{
-
+         transactionService.returnBook(cardId,bookId);
         return new ResponseEntity<>("transaction completed", HttpStatus.ACCEPTED);
     }
 }

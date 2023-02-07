@@ -1,5 +1,7 @@
 package com.driver.services;
 
+import com.driver.RequestDto.BookRequestDto;
+import com.driver.ResponseDtos.BookResponseDto;
 import com.driver.models.Author;
 import com.driver.models.Book;
 import com.driver.repositories.AuthorRepository;
@@ -21,24 +23,22 @@ public class BookService {
     @Autowired
     AuthorService authorService;
 
-    public void createBook(Book book)
+    public void createBook(BookRequestDto bookRequestDto)
     {
 
         // getting author of book
+       Book book = new Book();
+       int authorId = bookRequestDto.getAuthorId();
+        Author author = authorRepository.findById(authorId).get();
+        book.setAuthor(author);
+        book.setGenre(bookRequestDto.getGenre());
+        book.setAvailable(true);
+        book.setName(bookRequestDto.getName());
 
-//       int authorId = book.getAuthor().getId();
-//        Author author = authorRepository.findById(authorId).get();
-//
-//       author.getBooksWritten().add(book);
-//
-//
-//       book.setAuthor(author);
-//
-//
-//        book.setAvailable(true);
+       author.getBooksWritten().add(book);
 
-   bookRepository2.save(book);
-   //    authorRepository.save(author);
+   // bookRepository2.save(book);
+   authorRepository.save(author);
 
     }
 

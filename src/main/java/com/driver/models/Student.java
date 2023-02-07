@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(name="student")
 
 public class Student {
 
@@ -36,9 +36,8 @@ public class Student {
     }
     // alter table student add foreign key constraint card references Card(id)
 
-    @OneToOne
-    @JoinColumn   // join this column to the primary key of Card table
-    @JsonIgnoreProperties("student")
+
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
     private Card card;
 
 
